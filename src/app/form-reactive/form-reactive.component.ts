@@ -8,7 +8,12 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class FormReactiveComponent implements OnInit {
   reactiveForm: FormGroup
-  hide = true;
+
+  // Variable to hold the show hide status of the password field. Initially set to true. 
+  hidePW = true;
+  // Variable to hold the show hide status of the confirm password field.
+  hideCPW = true;
+
   constructor() { }
 
   ngOnInit() {
@@ -43,7 +48,7 @@ export class FormReactiveComponent implements OnInit {
   getEmailErrorMessage() {
     return this.email.hasError('required') ? 'You must enter a value' :
       this.email.hasError('email') ? 'Not a valid email' :
-        this.email.hasError('pattern') ? 'Email is not in the correct domain' :
+        this.email.hasError('pattern') ? 'Email is not in the correct domain. It must be in "ascentic.se" domain' :
           '';
   }
 

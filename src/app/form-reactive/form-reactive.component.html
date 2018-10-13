@@ -12,7 +12,6 @@
     </mat-form-field>
   </div>
 
-
   <div class="form-group">
     <!--<label>Confirm email</label>
     <input type="email" class="form-control" formControlName="confirmEmail"  />
@@ -28,16 +27,17 @@
 
   <div class="form-group">
     <!--<label>Password</label>
-  <input type="password" class="form-control" formControlName="password"/>
-  <div class="text-danger" *ngIf="password.invalid && (password.dirty || password.touched)">
-    Password required.-->
+    <input type="password" class="form-control" formControlName="password"/>
+    <div class="text-danger" *ngIf="password.invalid && (password.dirty || password.touched)">
+      Password required.-->
     <!--</div>-->
     <mat-form-field>
       <mat-label>Password</mat-label>
-      <input matInput placeholder="Enter a new password" maxlength="25" [formControl]="password" type="password" required>
+      <input matInput maxlength="25" minlength="5" placeholder="Enter a new password" [formControl]="password" [type]="hidePW ? 'password' : 'text'" required>
+      <span matSuffix class="cusion">{{password.value.length}} / 25</span>
+      <mat-icon matSuffix (click)="hidePW = !hidePW">{{hidePW ? 'visibility' : 'visibility_off'}}</mat-icon>
       <mat-error *ngIf="password.invalid">{{getPasswordErrorMessage()}}</mat-error>
       <mat-hint align="start"><strong>Don't</strong> use the password of your email account </mat-hint>
-      <mat-hint align="end">{{password.value.length}} / 25</mat-hint>
     </mat-form-field>
 
   </div>
@@ -49,7 +49,8 @@
       <div *ngIf=" confirmPassword.errors['appCompare']"> Do not match the Password.</div>-->
     <mat-form-field>
       <mat-label>Confirm Password</mat-label>
-      <input matInput placeholder="Re-enter your password" [formControl]="confirmPassword" type="password" appCompare="password" required>
+      <input matInput placeholder="Re-enter your password" [formControl]="confirmPassword" type="password" appCompare="password" [type]="hideCPW ? 'password' : 'text'" required>
+      <mat-icon matSuffix (click)="hideCPW = !hideCPW">{{hideCPW ? 'visibility' : 'visibility_off'}}</mat-icon>
       <mat-error *ngIf="confirmPassword.invalid">{{getConfirmPasswordErrorMessage()}}</mat-error>
     </mat-form-field>
   </div>
@@ -59,16 +60,19 @@
 </form>
 
 <br />
+<!--<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">Status of the form: {{templateForm.status}}</h4>
+    <h6 class="card-subtitle mb-2 text-muted">Value</h6>
+    <pre>{{templateForm.value | json}}</pre>
+  </div>
+</div>-->
 <mat-card>
   <mat-card-header>
     <mat-card-title><h4>Status of the form: {{reactiveForm.status}}</h4></mat-card-title>
     <mat-card-subtitle><h6>Value</h6></mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
-    <!--<div class="card-body"> -->
-    <!--<h4 class="card-title">Status of the form: {{reactiveForm.status}}</h4>-->
-    <!--<h6 class="card-subtitle mb-2 text-muted">Value</h6>-->
     <pre>{{reactiveForm.value | json}}</pre>
-    <!--</div>-->
   </mat-card-content>
 </mat-card>
